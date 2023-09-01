@@ -1,6 +1,4 @@
-package com.example.onlinedictionaryandroidappproject.presentation
-
-import com.example.onlinedictionaryandroidappproject.domain.models.DefinitionsDomainModel
+package com.example.onlinedictionaryandroidappproject.presentation.state
 
 data class MeaningsState(
     var partOfSpeech: String? = null,

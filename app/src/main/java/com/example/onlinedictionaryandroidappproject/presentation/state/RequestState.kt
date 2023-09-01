@@ -1,4 +1,4 @@
-package com.example.onlinedictionaryandroidappproject.presentation
+package com.example.onlinedictionaryandroidappproject.presentation.state
 
 data class RequestState(
     val statusMessage: String? = null,

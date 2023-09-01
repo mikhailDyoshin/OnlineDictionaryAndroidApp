@@ -1,6 +1,5 @@
-package com.example.onlinedictionaryandroidappproject.presentation
+package com.example.onlinedictionaryandroidappproject.presentation.viewmodel
 
-import android.app.DownloadManager.Request
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,10 @@ import com.example.onlinedictionaryandroidappproject.common.Resource
 import com.example.onlinedictionaryandroidappproject.domain.models.MeaningsDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.WordDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
+import com.example.onlinedictionaryandroidappproject.presentation.state.DefinitionsState
+import com.example.onlinedictionaryandroidappproject.presentation.state.MeaningsState
+import com.example.onlinedictionaryandroidappproject.presentation.state.RequestState
+import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

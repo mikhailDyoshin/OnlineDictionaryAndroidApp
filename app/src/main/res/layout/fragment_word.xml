@@ -6,9 +6,10 @@
 
         <variable
             name="wordViewModel"
-            type="com.example.onlinedictionaryandroidappproject.presentation.WordViewModel" />
+            type="com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel" />
 
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -124,11 +125,11 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/wordHeader">
 
-                <ListView
-                    android:id="@+id/listView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wordsListRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp" />
+                    app:layoutManager="LinearLayoutManager" />
 
             </LinearLayout>
 

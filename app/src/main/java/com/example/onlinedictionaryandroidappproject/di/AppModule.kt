@@ -4,6 +4,8 @@ import com.example.onlinedictionaryandroidappproject.common.Constants
 import com.example.onlinedictionaryandroidappproject.data.repository.DictionaryRepositoryImpl
 import com.example.onlinedictionaryandroidappproject.data.storage.DictionaryApi
 import com.example.onlinedictionaryandroidappproject.domain.repository.DictionaryRepository
+import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
+import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -38,6 +40,12 @@ object AppModule {
     @Singleton
     fun provideDictionaryRepository(api: DictionaryApi): DictionaryRepository {
         return DictionaryRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton // or another appropriate scope
+    fun provideWordViewModel(getWordUseCase: GetWordUseCase): WordViewModel {
+        return WordViewModel(getWordUseCase)
     }
 
 }

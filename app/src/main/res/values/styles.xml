@@ -13,4 +13,17 @@
         <item name="android:color">#808080</item> <!-- Input text size -->
     </style>
 
+    <style name="listHeaderStyle">
+        <item name="android:textSize">45sp</item> <!-- Input text size -->
+    </style>
+
+
+    <style name="listItemTextStyle">
+        <item name="android:textSize">35sp</item> <!-- Input text size -->
+    </style>
+
+    <style name="homeButtonStyle">
+        <item name="android:textSize">35sp</item> <!-- Input text size -->
+    </style>
+
 </resources>

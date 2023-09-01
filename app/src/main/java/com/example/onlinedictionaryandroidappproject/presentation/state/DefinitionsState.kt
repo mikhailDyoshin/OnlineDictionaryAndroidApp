@@ -1,4 +1,4 @@
-package com.example.onlinedictionaryandroidappproject.presentation
+package com.example.onlinedictionaryandroidappproject.presentation.state
 
 data class DefinitionsState(
     var definition: String? = null,
