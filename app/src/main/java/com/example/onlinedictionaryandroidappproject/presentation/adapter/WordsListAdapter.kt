@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
+import com.example.onlinedictionaryandroidappproject.presentation.fragment.GetWordFragmentDirections
 
 class WordsListAdapter(private val dataSet: List<String>) :
 RecyclerView.Adapter<WordsListAdapter.ViewHolder>() {
@@ -43,15 +43,13 @@ RecyclerView.Adapter<WordsListAdapter.ViewHolder>() {
         viewHolder.itemID.text = currentItemIDString
         viewHolder.itemContent.text = currentItemContent
 
-        val action = R.id.action_getWordFragment_to_wordDetailFragment
-        val bundle = bundleOf("wordID" to position)
+        val action = GetWordFragmentDirections.actionGetWordFragmentToWordDetailFragment(
+            wordID = position
+        )
 
         viewHolder.itemLayout.setOnClickListener {
 
-            viewHolder.itemView.findNavController().navigate(
-                action,
-                bundle
-            )
+            viewHolder.itemView.findNavController().navigate(action)
         }
 
 

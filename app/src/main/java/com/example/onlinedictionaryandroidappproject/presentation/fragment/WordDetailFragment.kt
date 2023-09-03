@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentWordDetailBinding
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class WordDetailFragment : Fragment() {
 
 
-    private val viewModel: WordViewModel by viewModels()
+    private val viewModel: WordViewModel by activityViewModels()
 
     private lateinit var binding: FragmentWordDetailBinding
 
@@ -50,7 +50,7 @@ class WordDetailFragment : Fragment() {
             val data = getMeanings(newState.data?.wordsStatesList ?: listOf(), wordID ?: 0)
 
             val adapter =
-                MeaningsListAdapter(data)
+                MeaningsListAdapter(data, wordID ?: 0)
 
             val recyclerView: RecyclerView = view.findViewById(R.id.meaningsListRecyclerView)
             recyclerView.adapter = adapter

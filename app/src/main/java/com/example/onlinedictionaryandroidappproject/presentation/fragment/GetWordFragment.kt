@@ -1,39 +1,26 @@
 package com.example.onlinedictionaryandroidappproject.presentation.fragment
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinedictionaryandroidappproject.MainActivity
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentWordBinding
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.WordsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class GetWordFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModel: WordViewModel
-
-    private val viewModel: WordViewModel by viewModels()
+    private val viewModel: WordViewModel by activityViewModels()
 
     private lateinit var binding: FragmentWordBinding
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        // Inject the ViewModel when the fragment is attached
-        (activity?.applicationContext as MainActivity).appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

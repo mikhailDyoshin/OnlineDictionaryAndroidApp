@@ -41,9 +41,9 @@
             android:id="@+id/action_meaningDetailFragment_to_definitionDetailFragment"
             app:destination="@id/definitionDetailFragment" />
         <argument
-            android:name="meaningID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="MeaningDetailNavData"
+            app:argType="com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData" />
+
     </fragment>
     <fragment
         android:id="@+id/definitionDetailFragment"
