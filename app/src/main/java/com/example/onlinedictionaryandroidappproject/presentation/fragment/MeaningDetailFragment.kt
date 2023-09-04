@@ -58,7 +58,10 @@ class MeaningDetailFragment : Fragment() {
             )
 
             val adapter =
-                DefinitionsListAdapter(data)
+                DefinitionsListAdapter(
+                    data,
+                    meaningDetailNavData ?: MeaningDetailNavData(wordID = 0, meaningID = 0)
+                )
 
             val recyclerView: RecyclerView = view.findViewById(R.id.definitionsListRecyclerView)
             recyclerView.adapter = adapter

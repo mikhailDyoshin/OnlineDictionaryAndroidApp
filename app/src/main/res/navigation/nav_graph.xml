@@ -54,8 +54,7 @@
             android:id="@+id/action_definitionDetailFragment_to_getWordFragment"
             app:destination="@id/getWordFragment" />
         <argument
-            android:name="definitionID"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="definitionDetailNavData"
+            app:argType="com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData" />
     </fragment>
 </navigation>

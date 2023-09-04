@@ -9,8 +9,15 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
+import com.example.onlinedictionaryandroidappproject.presentation.fragment.DefinitionDetailFragmentDirections
+import com.example.onlinedictionaryandroidappproject.presentation.fragment.MeaningDetailFragmentDirections
+import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
+import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
 
-class DefinitionsListAdapter(private val dataSet: List<String>) :
+class DefinitionsListAdapter(
+    private val dataSet: List<String>,
+    private val meaningDetailNavData: MeaningDetailNavData
+) :
     RecyclerView.Adapter<DefinitionsListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -43,14 +50,23 @@ class DefinitionsListAdapter(private val dataSet: List<String>) :
         viewHolder.itemID.text = currentItemIDString
         viewHolder.itemContent.text = currentItemContent
 
-        val action = R.id.action_meaningDetailFragment_to_definitionDetailFragment
-        val bundle = bundleOf("definitionID" to position)
+        val data = DefinitionDetailNavData(
+            wordID = meaningDetailNavData.wordID,
+            meaningID = meaningDetailNavData.meaningID,
+            definitionID = position,
+        )
+
+//        val action = R.id.action_meaningDetailFragment_to_definitionDetailFragment
+//        val bundle = bundleOf("definitionID" to position)
+
+        val action = MeaningDetailFragmentDirections.actionMeaningDetailFragmentToDefinitionDetailFragment(
+            data
+        )
 
         viewHolder.itemLayout.setOnClickListener {
 
             viewHolder.itemView.findNavController().navigate(
-                action,
-                bundle
+                action
             )
         }
 
