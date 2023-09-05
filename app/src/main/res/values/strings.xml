@@ -7,4 +7,9 @@
     <string name="search">Search</string>
     <string name="search_button">Search button</string>
     <string name="home_button_text">home</string>
+    <string name="definitions_header">Definitions</string>
+    <string name="synonyms_header">Synonyms</string>
+    <string name="antonyms_header">Antonyms</string>
+    <string name="back_button_description">back button</string>
+    <string name="home_button_description">home_button</string>
 </resources>

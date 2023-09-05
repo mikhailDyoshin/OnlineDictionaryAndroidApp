@@ -32,7 +32,6 @@ class GetWordFragment : Fragment() {
             false
         )
 
-
         return binding.root
     }
 
@@ -47,7 +46,7 @@ class GetWordFragment : Fragment() {
             val adapter =
                 WordsListAdapter(getWords(newState.data?.wordsStatesList ?: listOf()))
 
-            val recyclerView: RecyclerView = view.findViewById(R.id.wordsListRecyclerView)
+            val recyclerView: RecyclerView = binding.wordsListRecyclerView
             recyclerView.adapter = adapter
 
         }
@@ -66,7 +65,6 @@ class GetWordFragment : Fragment() {
     }
 
     private fun getWords(words: List<WordState>): List<String> {
-
 
         if (words != mutableListOf<WordState>()) {
 

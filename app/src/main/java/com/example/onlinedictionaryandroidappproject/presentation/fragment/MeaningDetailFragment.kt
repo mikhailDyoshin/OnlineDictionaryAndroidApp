@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentMeaningDetailBinding
@@ -45,6 +46,17 @@ class MeaningDetailFragment : Fragment() {
         binding.wordViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Back-button navigation
+        binding.backButton.setOnClickListener {
+            binding.root.findNavController().navigateUp()
+        }
+
+        // Home-button navigation
+        binding.homeButton.setOnClickListener {
+            val action = MeaningDetailFragmentDirections.actionMeaningDetailFragmentToGetWordFragment()
+            binding.root.findNavController().navigate(action)
+        }
+
         viewModel.wordState.observe(viewLifecycleOwner) { newState ->
 
             arguments?.let {
@@ -63,7 +75,7 @@ class MeaningDetailFragment : Fragment() {
                     meaningDetailNavData ?: MeaningDetailNavData(wordID = 0, meaningID = 0)
                 )
 
-            val recyclerView: RecyclerView = view.findViewById(R.id.definitionsListRecyclerView)
+            val recyclerView: RecyclerView = binding.definitionsListRecyclerView
             recyclerView.adapter = adapter
 
         }

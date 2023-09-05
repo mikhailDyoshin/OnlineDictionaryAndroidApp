@@ -40,7 +40,10 @@ RecyclerView.Adapter<WordsListAdapter.ViewHolder>() {
         val currentItemID = position + 1
         val currentItemIDString = "${currentItemID}."
 
-        viewHolder.itemID.text = currentItemIDString
+        if (dataSet.size > 1) {
+            viewHolder.itemID.text = currentItemIDString
+        }
+
         viewHolder.itemContent.text = currentItemContent
 
         val action = GetWordFragmentDirections.actionGetWordFragmentToWordDetailFragment(

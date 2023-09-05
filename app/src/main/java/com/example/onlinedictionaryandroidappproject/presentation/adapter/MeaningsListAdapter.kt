@@ -17,12 +17,10 @@ class MeaningsListAdapter(private val dataSet: List<String>, private val wordID:
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val itemLayout: LinearLayout
-        val itemID: TextView
         val itemContent: TextView
 
         init {
             itemLayout = view.findViewById(R.id.itemLayout)
-            itemID = view.findViewById(R.id.itemID)
             itemContent = view.findViewById(R.id.itemContent)
 
         }
@@ -38,10 +36,7 @@ class MeaningsListAdapter(private val dataSet: List<String>, private val wordID:
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItemContent = dataSet[position]
-        val currentItemID = position + 1
-        val currentItemIDString = "${currentItemID}."
 
-        viewHolder.itemID.text = currentItemIDString
         viewHolder.itemContent.text = currentItemContent
 
         val data = MeaningDetailNavData(

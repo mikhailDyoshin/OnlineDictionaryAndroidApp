@@ -23,12 +23,10 @@ class DefinitionsListAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val itemLayout: LinearLayout
-        val itemID: TextView
         val itemContent: TextView
 
         init {
             itemLayout = view.findViewById(R.id.itemLayout)
-            itemID = view.findViewById(R.id.itemID)
             itemContent = view.findViewById(R.id.itemContent)
 
         }
@@ -37,17 +35,14 @@ class DefinitionsListAdapter(
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_item_layout, viewGroup, false)
+            .inflate(R.layout.definition_list_item_layout, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItemContent = dataSet[position]
-        val currentItemID = position + 1
-        val currentItemIDString = "${currentItemID}."
 
-        viewHolder.itemID.text = currentItemIDString
         viewHolder.itemContent.text = currentItemContent
 
         val data = DefinitionDetailNavData(
