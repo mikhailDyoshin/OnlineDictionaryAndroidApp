@@ -5,7 +5,6 @@
         android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
         android:background="@drawable/list_item_shape"
         android:gravity="center"
         android:orientation="horizontal">

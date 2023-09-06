@@ -4,7 +4,7 @@ import com.example.onlinedictionaryandroidappproject.data.storage.models.Definit
 
 data class MeaningsDomainModel(
     var partOfSpeech: String? = null,
-    var definitions: MutableList<DefinitionsDomainModel> = mutableListOf(),
-    var synonyms: MutableList<String> = mutableListOf(),
-    var antonyms: MutableList<String> = mutableListOf()
+    var definitions: List<DefinitionsDomainModel> = listOf(),
+    var synonyms: List<String> = listOf(),
+    var antonyms: List<String> = listOf()
 )

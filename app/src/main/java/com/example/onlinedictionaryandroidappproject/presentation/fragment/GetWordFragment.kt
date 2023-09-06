@@ -44,7 +44,7 @@ class GetWordFragment : Fragment() {
         viewModel.wordState.observe(viewLifecycleOwner) { newState ->
 
             val adapter =
-                WordsListAdapter(getWords(newState.data?.wordsStatesList ?: listOf()))
+                WordsListAdapter(viewModel.getWords(newState))
 
             val recyclerView: RecyclerView = binding.wordsListRecyclerView
             recyclerView.adapter = adapter
@@ -64,14 +64,6 @@ class GetWordFragment : Fragment() {
 
     }
 
-    private fun getWords(words: List<WordState>): List<String> {
 
-        if (words != mutableListOf<WordState>()) {
-
-            return words.map { it.word ?: "" }
-        }
-
-        return listOf()
-    }
 
 }

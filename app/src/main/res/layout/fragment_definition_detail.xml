@@ -98,7 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <!-- Synonyms list -->
                 <LinearLayout
@@ -113,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text=""
+                        android:text="@string/synonyms_list_header"
                         android:textAppearance="@style/onymsListHeader" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -136,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text=""
+                        android:text="@string/antonyms_list_header"
                         android:textAppearance="@style/onymsListHeader" />
 
                     <androidx.recyclerview.widget.RecyclerView

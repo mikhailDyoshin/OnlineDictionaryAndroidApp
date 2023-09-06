@@ -13,7 +13,6 @@ import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentMeaningDetailBinding
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.DefinitionsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
-import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,7 +52,8 @@ class MeaningDetailFragment : Fragment() {
 
         // Home-button navigation
         binding.homeButton.setOnClickListener {
-            val action = MeaningDetailFragmentDirections.actionMeaningDetailFragmentToGetWordFragment()
+            val action =
+                MeaningDetailFragmentDirections.actionMeaningDetailFragmentToGetWordFragment()
             binding.root.findNavController().navigate(action)
         }
 
@@ -64,8 +64,8 @@ class MeaningDetailFragment : Fragment() {
                 meaningDetailNavData = args.MeaningDetailNavData
             }
 
-            val data = getDefinitions(
-                newState.data?.wordsStatesList ?: listOf(),
+            val data = viewModel.getDefinitions(
+                newState,
                 meaningDetailNavData ?: MeaningDetailNavData(0, 0)
             )
 
@@ -82,22 +82,5 @@ class MeaningDetailFragment : Fragment() {
 
     }
 
-    private fun getDefinitions(
-        words: List<WordState>,
-        navData: MeaningDetailNavData
-    ): List<String> {
-
-        val wordID = navData.wordID
-        val meaningID = navData.meaningID
-
-        if (words != mutableListOf<WordState>()) {
-
-            val meaning = words[wordID].meanings[meaningID]
-
-            return meaning.definitions.map { it.definition ?: "" }
-        }
-
-        return listOf()
-    }
 
 }

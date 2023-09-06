@@ -15,11 +15,10 @@ import com.example.onlinedictionaryandroidappproject.databinding.FragmentDefinit
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.AntonymsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.SynonymsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
-import com.example.onlinedictionaryandroidappproject.presentation.state.DefinitionsState
-import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DefinitionDetailFragment : Fragment() {
 
     private val viewModel: WordViewModel by activityViewModels()
@@ -29,14 +28,10 @@ class DefinitionDetailFragment : Fragment() {
     private lateinit var binding: FragmentDefinitionDetailBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_definition_detail,
-            container,
-            false
+            inflater, R.layout.fragment_definition_detail, container, false
         )
 
         return binding.root
@@ -48,10 +43,10 @@ class DefinitionDetailFragment : Fragment() {
         binding.wordViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // View that contain data
+        // Views that contain data
         val definitionView = binding.definition
         val exampleView = binding.example
-        val exampleOnymsDiveder = binding.exampleOnymsDivider
+        val exampleOnymsDivider = binding.exampleOnymsDivider
         val synonymsListHeader: TextView = binding.synonymsListHeader
         val antonymsListHeader: TextView = binding.antonymsListHeader
 
@@ -76,9 +71,13 @@ class DefinitionDetailFragment : Fragment() {
             }
 
             // Getting data from the ViewModel
-            val data = getDefinitionDetail(
-                newState.data?.wordsStatesList ?: listOf(),
-                definitionDetailNavData ?: DefinitionDetailNavData(0, 0, 0)
+            val data = viewModel.getDefinitionDetail(
+                dataState = newState,
+                navData = definitionDetailNavData ?: DefinitionDetailNavData(
+                    wordID = 0,
+                    meaningID = 0,
+                    definitionID = 0,
+                )
             )
 
             // Data to display
@@ -90,54 +89,54 @@ class DefinitionDetailFragment : Fragment() {
 
             definitionView.text = definitionText
 
+            // Configure example-section rendering
             if (data.example == null) {
                 exampleView.visibility = View.GONE
-                exampleOnymsDiveder.visibility = View.GONE
+                exampleOnymsDivider.visibility = View.GONE
             } else {
                 exampleView.text = exampleText
                 exampleView.visibility = View.VISIBLE
-                exampleOnymsDiveder.visibility = View.VISIBLE
+                exampleOnymsDivider.visibility = View.VISIBLE
             }
 
-            if (synonyms.size != 0 || antonyms.size != 0) {
+            // Configure synonyms and antonyms lists rendering
+            val synonymsAdapter = SynonymsListAdapter(synonyms)
+            val antonymsAdapter = AntonymsListAdapter(antonyms)
 
-                val synonymsListHeaderText = "Synonyms"
-                val antonymsListHeaderText = "Antonyms"
+            val synonymsRecyclerView: RecyclerView = binding.synonymsListRecyclerView
+            synonymsRecyclerView.adapter = synonymsAdapter
 
-                synonymsListHeader.text = synonymsListHeaderText
-                antonymsListHeader.text = antonymsListHeaderText
+            val antonymsRecyclerView: RecyclerView = binding.antonymsListRecyclerView
+            antonymsRecyclerView.adapter = antonymsAdapter
 
-                val synonymsAdapter = SynonymsListAdapter(synonyms)
-                val antonymsAdapter = AntonymsListAdapter(antonyms)
+            when {
+                synonyms.isEmpty() && antonyms.isEmpty() -> {
+                    synonymsListHeader.visibility = View.GONE
+                    synonymsRecyclerView.visibility = View.GONE
+                    antonymsListHeader.visibility = View.GONE
+                    antonymsRecyclerView.visibility = View.GONE
+                }
 
-                val synonymsRecyclerView: RecyclerView = binding.synonymsListRecyclerView
-                synonymsRecyclerView.adapter = synonymsAdapter
+                synonyms.isEmpty() -> {
+                    synonymsListHeader.visibility = View.GONE
+                    synonymsRecyclerView.visibility = View.GONE
 
-                val antonymsRecyclerView: RecyclerView = binding.antonymsListRecyclerView
-                antonymsRecyclerView.adapter = antonymsAdapter
+                }
+
+                antonyms.isEmpty() -> {
+                    antonymsListHeader.visibility = View.GONE
+                    antonymsRecyclerView.visibility = View.GONE
+
+                }
+
+                else -> {
+                    synonymsListHeader.visibility = View.VISIBLE
+                    antonymsListHeader.visibility = View.VISIBLE
+                }
             }
-
 
         }
 
     }
-
-    private fun getDefinitionDetail(
-        words: List<WordState>,
-        navData: DefinitionDetailNavData
-    ): DefinitionsState {
-
-        val wordID = navData.wordID
-        val meaningID = navData.meaningID
-        val definitionID = navData.definitionID
-
-        if (words != mutableListOf<WordState>()) {
-
-            return words[wordID].meanings[meaningID].definitions[definitionID]
-        }
-
-        return DefinitionsState()
-    }
-
 
 }

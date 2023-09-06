@@ -12,4 +12,6 @@
     <string name="antonyms_header">Antonyms</string>
     <string name="back_button_description">back button</string>
     <string name="home_button_description">home_button</string>
+    <string name="synonyms_list_header">Synonyms</string>
+    <string name="antonyms_list_header">Antonyms</string>
 </resources>

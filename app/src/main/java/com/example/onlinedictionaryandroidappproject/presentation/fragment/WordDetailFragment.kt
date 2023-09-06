@@ -59,7 +59,7 @@ class WordDetailFragment : Fragment() {
 
             val wordID = arguments?.getInt("wordID")
 
-            val data = getMeanings(newState.data?.wordsStatesList ?: listOf(), wordID ?: 0)
+            val data = viewModel.getMeanings(newState, wordID ?: 0)
 
             val adapter = MeaningsListAdapter(data, wordID ?: 0)
 
@@ -70,16 +70,6 @@ class WordDetailFragment : Fragment() {
 
     }
 
-    private fun getMeanings(words: List<WordState>, id: Int): List<String> {
 
-        if (words != mutableListOf<WordState>()) {
-
-            val word = words[id]
-
-            return word.meanings.map { it.partOfSpeech ?: "" }
-        }
-
-        return listOf()
-    }
 
 }
