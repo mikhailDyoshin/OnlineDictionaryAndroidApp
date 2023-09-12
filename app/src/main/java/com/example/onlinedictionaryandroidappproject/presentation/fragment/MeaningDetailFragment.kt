@@ -64,19 +64,23 @@ class MeaningDetailFragment : Fragment() {
                 meaningDetailNavData = args.MeaningDetailNavData
             }
 
-            val data = viewModel.getDefinitions(
-                newState,
-                meaningDetailNavData ?: MeaningDetailNavData(0, 0)
-            )
+            val definitionsList = newState.data?.wordsStatesList?.get(
+                meaningDetailNavData?.wordID ?: 0
+            )?.meanings?.get(meaningDetailNavData?.meaningID ?: 0)?.definitions
+
 
             val adapter =
                 DefinitionsListAdapter(
-                    data,
-                    meaningDetailNavData ?: MeaningDetailNavData(wordID = 0, meaningID = 0)
+                    meaningDetailNavData = meaningDetailNavData ?: MeaningDetailNavData(
+                        wordID = 0,
+                        meaningID = 0
+                    )
                 )
 
             val recyclerView: RecyclerView = binding.definitionsListRecyclerView
             recyclerView.adapter = adapter
+
+            adapter.submitList(definitionsList)
 
         }
 

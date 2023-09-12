@@ -44,15 +44,10 @@ class DictionaryRepositoryImpl @Inject constructor(private val api: DictionaryAp
     }
 
     private fun transformResponse(responseBody: List<WordStorageModel>): List<WordDomainModel> {
-        val transformedWordsList = mutableListOf<WordDomainModel>()
 
-        for (w in responseBody) {
-            transformedWordsList.add(
-                transformModels(w)
-            )
+        return responseBody.map {
+            transformModels(it)
         }
-
-        return transformedWordsList.toList()
     }
 
     private fun transformModels(source: WordStorageModel): WordDomainModel {
@@ -62,42 +57,30 @@ class DictionaryRepositoryImpl @Inject constructor(private val api: DictionaryAp
         )
     }
 
-    private fun getMeanings(word: WordStorageModel): MutableList<MeaningsDomainModel> {
+    private fun getMeanings(word: WordStorageModel): List<MeaningsDomainModel> {
         val meanings = word.meanings
 
-        val transformedMeaningsList = mutableListOf<MeaningsDomainModel>()
-
-        for (m in meanings) {
-            transformedMeaningsList.add(
-                MeaningsDomainModel(
-                    partOfSpeech = m.partOfSpeech,
-                    definitions = getDefinitions(m),
-                    synonyms = m.synonyms,
-                    antonyms = m.antonyms
-                )
+        return meanings.map {
+            MeaningsDomainModel(
+                partOfSpeech = it.partOfSpeech,
+                definitions = getDefinitions(it),
+                synonyms = it.synonyms,
+                antonyms = it.antonyms
             )
         }
-
-        return transformedMeaningsList
     }
 
-    private fun getDefinitions(meaning: MeaningsStorageModel): MutableList<DefinitionsDomainModel> {
+    private fun getDefinitions(meaning: MeaningsStorageModel): List<DefinitionsDomainModel> {
         val definitions = meaning.definitions
 
-        val transformedDefinitionsList = mutableListOf<DefinitionsDomainModel>()
-
-        for (d in definitions) {
-            transformedDefinitionsList.add(
-                DefinitionsDomainModel(
-                    definition = d.definition,
-                    synonyms = d.synonyms,
-                    antonyms = d.antonyms,
-                    example = d.example,
-                )
+        return definitions.map {
+            DefinitionsDomainModel(
+                definition = it.definition,
+                synonyms = it.synonyms,
+                antonyms = it.antonyms,
+                example = it.example,
             )
         }
-
-        return transformedDefinitionsList
     }
 
 }

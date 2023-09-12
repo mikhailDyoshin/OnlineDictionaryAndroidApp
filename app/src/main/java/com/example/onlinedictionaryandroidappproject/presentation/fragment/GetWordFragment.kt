@@ -43,11 +43,14 @@ class GetWordFragment : Fragment() {
 
         viewModel.wordState.observe(viewLifecycleOwner) { newState ->
 
-            val adapter =
-                WordsListAdapter(viewModel.getWords(newState))
+            val adapter = WordsListAdapter()
 
             val recyclerView: RecyclerView = binding.wordsListRecyclerView
             recyclerView.adapter = adapter
+
+            val wordsList = newState.data?.wordsStatesList ?: listOf<WordState>()
+
+            adapter.submitList(wordsList)
 
         }
 
@@ -63,7 +66,5 @@ class GetWordFragment : Fragment() {
         viewModel.getWord(word = wordToFind)
 
     }
-
-
 
 }

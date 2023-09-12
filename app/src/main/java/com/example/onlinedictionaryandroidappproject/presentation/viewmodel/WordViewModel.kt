@@ -8,8 +8,6 @@ import com.example.onlinedictionaryandroidappproject.common.Resource
 import com.example.onlinedictionaryandroidappproject.domain.models.MeaningsDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.WordDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
-import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
-import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
 import com.example.onlinedictionaryandroidappproject.presentation.state.DefinitionsState
 import com.example.onlinedictionaryandroidappproject.presentation.state.MeaningsState
 import com.example.onlinedictionaryandroidappproject.presentation.state.RequestState
@@ -34,12 +32,20 @@ class WordViewModel @Inject constructor(private val getWordUseCase: GetWordUseCa
         getWordUseCase.execute(word).onEach { result ->
             when (result.status) {
                 Resource.Status.SUCCESS -> {
-                    _wordState.value = Resource.success(
-                        data = RequestState(
-                            statusMessage = "",
-                            wordsStatesList = transformResponse(result.data!!)
+                    if (result.data == null) {
+                        _wordState.value = Resource.error(
+                            message = "No data!",
+                            data = RequestState(statusMessage = "", wordsStatesList = listOf())
                         )
-                    )
+                    } else {
+                        _wordState.value = Resource.success(
+                            data = RequestState(
+                                statusMessage = "",
+                                wordsStatesList = transformResponse(result.data)
+                            )
+                        )
+                    }
+
                 }
 
                 Resource.Status.ERROR -> {
@@ -63,80 +69,9 @@ class WordViewModel @Inject constructor(private val getWordUseCase: GetWordUseCa
 
     }
 
-    fun getWords(dataState: Resource<RequestState>): List<String> {
-
-        val words = dataState.data?.wordsStatesList ?: listOf()
-
-        if (words != listOf<WordState>()) {
-
-            return words.map { it.word ?: "" }
-        }
-
-        return listOf()
-    }
-
-    fun getMeanings(dataState: Resource<RequestState>, id: Int): List<String> {
-
-        val words = dataState.data?.wordsStatesList ?: listOf()
-
-        if (words != mutableListOf<WordState>()) {
-
-            val word = words[id]
-
-            return word.meanings.map { it.partOfSpeech ?: "" }
-        }
-
-        return listOf()
-    }
-
-    fun getDefinitions(
-        dataState: Resource<RequestState>,
-        navData: MeaningDetailNavData
-    ): List<String> {
-
-        val wordID = navData.wordID
-        val meaningID = navData.meaningID
-
-        val words = dataState.data?.wordsStatesList ?: listOf()
-
-        if (words != listOf<WordState>()) {
-
-            val meaning = words[wordID].meanings[meaningID]
-
-            return meaning.definitions.map { it.definition ?: "" }
-        }
-
-        return listOf()
-    }
-
-    fun getDefinitionDetail(
-        dataState: Resource<RequestState>, navData: DefinitionDetailNavData
-    ): DefinitionsState {
-
-        val wordID = navData.wordID
-        val meaningID = navData.meaningID
-        val definitionID = navData.definitionID
-
-        val words = dataState.data?.wordsStatesList ?: listOf()
-
-        if (words != mutableListOf<WordState>()) {
-
-            return words[wordID].meanings[meaningID].definitions[definitionID]
-        }
-
-        return DefinitionsState()
-    }
-
     private fun transformResponse(responseBody: List<WordDomainModel>): List<WordState> {
-        val transformedWordsList = mutableListOf<WordState>()
 
-        for (w in responseBody) {
-            transformedWordsList.add(
-                transformModels(w)
-            )
-        }
-
-        return transformedWordsList.toList()
+        return responseBody.map { transformModels(source = it) }
     }
 
     private fun transformModels(source: WordDomainModel): WordState {
@@ -149,39 +84,27 @@ class WordViewModel @Inject constructor(private val getWordUseCase: GetWordUseCa
     private fun transformMeanings(word: WordDomainModel): List<MeaningsState> {
         val meanings = word.meanings
 
-        val transformedMeaningsList = mutableListOf<MeaningsState>()
-
-        for (m in meanings) {
-            transformedMeaningsList.add(
-                MeaningsState(
-                    partOfSpeech = m.partOfSpeech,
-                    definitions = transformDefinitions(m),
-                    synonyms = m.synonyms,
-                    antonyms = m.antonyms
-                )
+        return meanings.map {
+            MeaningsState(
+                partOfSpeech = it.partOfSpeech,
+                definitions = transformDefinitions(it),
+                synonyms = it.synonyms,
+                antonyms = it.antonyms
             )
         }
-
-        return transformedMeaningsList
     }
 
     private fun transformDefinitions(meaning: MeaningsDomainModel): List<DefinitionsState> {
         val definitions = meaning.definitions
 
-        val transformedDefinitionsList = mutableListOf<DefinitionsState>()
-
-        for (d in definitions) {
-            transformedDefinitionsList.add(
-                DefinitionsState(
-                    definition = d.definition,
-                    synonyms = d.synonyms,
-                    antonyms = d.antonyms,
-                    example = d.example,
-                )
+        return definitions.map {
+            DefinitionsState(
+                definition = it.definition,
+                synonyms = it.synonyms,
+                antonyms = it.antonyms,
+                example = it.example,
             )
         }
-
-        return transformedDefinitionsList
     }
 
 }

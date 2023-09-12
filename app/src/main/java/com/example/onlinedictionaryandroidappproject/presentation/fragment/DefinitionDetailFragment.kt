@@ -12,8 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentDefinitionDetailBinding
-import com.example.onlinedictionaryandroidappproject.presentation.adapter.AntonymsListAdapter
-import com.example.onlinedictionaryandroidappproject.presentation.adapter.SynonymsListAdapter
+import com.example.onlinedictionaryandroidappproject.presentation.adapter.OnymsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,26 +70,23 @@ class DefinitionDetailFragment : Fragment() {
             }
 
             // Getting data from the ViewModel
-            val data = viewModel.getDefinitionDetail(
-                dataState = newState,
-                navData = definitionDetailNavData ?: DefinitionDetailNavData(
-                    wordID = 0,
-                    meaningID = 0,
-                    definitionID = 0,
-                )
+            val definitionDetail = newState.data?.wordsStatesList?.get(
+                definitionDetailNavData?.wordID ?: 0
+            )?.meanings?.get(definitionDetailNavData?.meaningID ?: 0)?.definitions?.get(
+                definitionDetailNavData?.definitionID ?: 0
             )
 
             // Data to display
-            val definitionText = "Definition: ${data.definition}"
-            val exampleText = "Example: ${data.example}"
-            val synonyms = data.synonyms
-            val antonyms = data.antonyms
+            val definitionText = "Definition: ${definitionDetail?.definition}"
+            val exampleText = "Example: ${definitionDetail?.example}"
+            val synonyms = definitionDetail?.synonyms
+            val antonyms = definitionDetail?.antonyms
 
 
             definitionView.text = definitionText
 
             // Configure example-section rendering
-            if (data.example == null) {
+            if (definitionDetail?.example == null) {
                 exampleView.visibility = View.GONE
                 exampleOnymsDivider.visibility = View.GONE
             } else {
@@ -100,8 +96,8 @@ class DefinitionDetailFragment : Fragment() {
             }
 
             // Configure synonyms and antonyms lists rendering
-            val synonymsAdapter = SynonymsListAdapter(synonyms)
-            val antonymsAdapter = AntonymsListAdapter(antonyms)
+            val synonymsAdapter = OnymsListAdapter()
+            val antonymsAdapter = OnymsListAdapter()
 
             val synonymsRecyclerView: RecyclerView = binding.synonymsListRecyclerView
             synonymsRecyclerView.adapter = synonymsAdapter
@@ -109,29 +105,36 @@ class DefinitionDetailFragment : Fragment() {
             val antonymsRecyclerView: RecyclerView = binding.antonymsListRecyclerView
             antonymsRecyclerView.adapter = antonymsAdapter
 
-            when {
-                synonyms.isEmpty() && antonyms.isEmpty() -> {
-                    synonymsListHeader.visibility = View.GONE
-                    synonymsRecyclerView.visibility = View.GONE
-                    antonymsListHeader.visibility = View.GONE
-                    antonymsRecyclerView.visibility = View.GONE
-                }
+            antonymsAdapter.submitList(antonyms)
+            synonymsAdapter.submitList(synonyms)
 
-                synonyms.isEmpty() -> {
-                    synonymsListHeader.visibility = View.GONE
-                    synonymsRecyclerView.visibility = View.GONE
+            if (synonyms != null) {
+                if (antonyms != null) {
+                    when {
+                        synonyms.isEmpty() && antonyms.isEmpty() -> {
+                            synonymsListHeader.visibility = View.GONE
+                            synonymsRecyclerView.visibility = View.GONE
+                            antonymsListHeader.visibility = View.GONE
+                            antonymsRecyclerView.visibility = View.GONE
+                        }
 
-                }
+                        synonyms.isEmpty() -> {
+                            synonymsListHeader.visibility = View.GONE
+                            synonymsRecyclerView.visibility = View.GONE
 
-                antonyms.isEmpty() -> {
-                    antonymsListHeader.visibility = View.GONE
-                    antonymsRecyclerView.visibility = View.GONE
+                        }
 
-                }
+                        antonyms.isEmpty() -> {
+                            antonymsListHeader.visibility = View.GONE
+                            antonymsRecyclerView.visibility = View.GONE
 
-                else -> {
-                    synonymsListHeader.visibility = View.VISIBLE
-                    antonymsListHeader.visibility = View.VISIBLE
+                        }
+
+                        else -> {
+                            synonymsListHeader.visibility = View.VISIBLE
+                            antonymsListHeader.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
 

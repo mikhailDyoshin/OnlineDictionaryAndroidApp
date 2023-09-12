@@ -1,58 +1,78 @@
 package com.example.onlinedictionaryandroidappproject.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinedictionaryandroidappproject.R
+import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.WordDetailFragmentDirections
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
+import com.example.onlinedictionaryandroidappproject.presentation.state.MeaningsState
 
-class MeaningsListAdapter(private val dataSet: List<String>, private val wordID: Int) :
-    RecyclerView.Adapter<MeaningsListAdapter.ViewHolder>() {
+class MeaningsListAdapter(private val wordID: Int) :
+    ListAdapter<MeaningsState, MeaningsListAdapter.ItemHolder>(ItemComparator()) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ItemHolder(private val binding: ListItemLayoutBinding, private val wordID: Int) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val itemLayout: LinearLayout
-        val itemContent: TextView
+        fun bind(meaning: MeaningsState, position: Int) = with(binding) {
 
-        init {
-            itemLayout = view.findViewById(R.id.itemLayout)
-            itemContent = view.findViewById(R.id.itemContent)
+            val currentItemID = position + 1
+            val currentItemIDString = "${currentItemID}."
 
-        }
-    }
+            itemContent.text = meaning.partOfSpeech
+            itemID.text = currentItemIDString
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_item_layout, viewGroup, false)
+            val data = MeaningDetailNavData(
+                wordID = wordID,
+                meaningID = position
+            )
 
-        return ViewHolder(view)
-    }
+            val action =
+                WordDetailFragmentDirections.actionWordDetailFragmentToMeaningDetailFragment(
+                    data
+                )
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItemContent = dataSet[position]
+            itemLayout.setOnClickListener {
 
-        viewHolder.itemContent.text = currentItemContent
-
-        val data = MeaningDetailNavData(
-            wordID = wordID,
-            meaningID = position
-        )
-        val action = WordDetailFragmentDirections.actionWordDetailFragmentToMeaningDetailFragment(
-            data
-        )
-
-        viewHolder.itemLayout.setOnClickListener {
-
-            viewHolder.itemView.findNavController().navigate(action)
+                binding.root.findNavController().navigate(action)
+            }
         }
 
+        companion object {
+            fun create(parent: ViewGroup, wordID: Int): ItemHolder {
+                return ItemHolder(
+                    ListItemLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                    wordID
+                )
+            }
+        }
+
     }
 
-    override fun getItemCount() = dataSet.size
+    class ItemComparator : DiffUtil.ItemCallback<MeaningsState>() {
+        override fun areItemsTheSame(oldItem: MeaningsState, newItem: MeaningsState): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: MeaningsState, newItem: MeaningsState): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+        return ItemHolder.create(parent, wordID)
+    }
+
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        holder.bind(getItem(position), position)
+    }
+
 }

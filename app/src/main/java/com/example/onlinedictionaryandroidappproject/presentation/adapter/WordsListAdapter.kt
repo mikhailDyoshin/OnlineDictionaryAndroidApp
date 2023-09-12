@@ -1,63 +1,69 @@
 package com.example.onlinedictionaryandroidappproject.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinedictionaryandroidappproject.R
+import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.GetWordFragmentDirections
+import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 
-class WordsListAdapter(private val dataSet: List<String>) :
-RecyclerView.Adapter<WordsListAdapter.ViewHolder>() {
+class WordsListAdapter : ListAdapter<WordState, WordsListAdapter.ItemHolder>(ItemComparator()) {
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ItemHolder(private val binding: ListItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val itemLayout: LinearLayout
-        val itemID: TextView
-        val itemContent: TextView
+        fun bind(word: WordState, position: Int) = with(binding) {
 
-        init {
-            itemLayout = view.findViewById(R.id.itemLayout)
-            itemID = view.findViewById(R.id.itemID)
-            itemContent = view.findViewById(R.id.itemContent)
+            val currentItemID = position + 1
+            val currentItemIDString = "${currentItemID}."
 
-        }
-    }
+            itemContent.text = word.word
+            itemID.text = currentItemIDString
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_item_layout, viewGroup, false)
+            val action = GetWordFragmentDirections.actionGetWordFragmentToWordDetailFragment(
+                wordID = position
+            )
 
-        return ViewHolder(view)
-    }
+            itemLayout.setOnClickListener {
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItemContent = dataSet[position]
-        val currentItemID = position + 1
-        val currentItemIDString = "${currentItemID}."
-
-        if (dataSet.size > 1) {
-            viewHolder.itemID.text = currentItemIDString
+                binding.root.findNavController().navigate(action)
+            }
         }
 
-        viewHolder.itemContent.text = currentItemContent
-
-        val action = GetWordFragmentDirections.actionGetWordFragmentToWordDetailFragment(
-            wordID = position
-        )
-
-        viewHolder.itemLayout.setOnClickListener {
-
-            viewHolder.itemView.findNavController().navigate(action)
+        companion object {
+            fun create(parent: ViewGroup): ItemHolder {
+                return ItemHolder(
+                    ListItemLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
         }
-
 
     }
 
-    override fun getItemCount() = dataSet.size
+    class ItemComparator : DiffUtil.ItemCallback<WordState>() {
+        override fun areItemsTheSame(oldItem: WordState, newItem: WordState): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: WordState, newItem: WordState): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+        return ItemHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        holder.bind(getItem(position), position)
+    }
 
 }

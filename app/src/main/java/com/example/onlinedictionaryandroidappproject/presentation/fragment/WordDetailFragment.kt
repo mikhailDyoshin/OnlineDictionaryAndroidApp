@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentWordDetailBinding
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.MeaningsListAdapter
-import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,17 +58,19 @@ class WordDetailFragment : Fragment() {
 
             val wordID = arguments?.getInt("wordID")
 
-            val data = viewModel.getMeanings(newState, wordID ?: 0)
+            val meaningsList =
+                newState.data?.wordsStatesList?.get(wordID ?: 0)?.meanings
 
-            val adapter = MeaningsListAdapter(data, wordID ?: 0)
+            val adapter = MeaningsListAdapter(wordID = wordID ?: 0)
 
             val recyclerView: RecyclerView = binding.meaningsListRecyclerView
             recyclerView.adapter = adapter
 
+            adapter.submitList(meaningsList)
+
         }
 
     }
-
 
 
 }

@@ -1,71 +1,76 @@
 package com.example.onlinedictionaryandroidappproject.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinedictionaryandroidappproject.R
-import com.example.onlinedictionaryandroidappproject.presentation.fragment.DefinitionDetailFragmentDirections
+import com.example.onlinedictionaryandroidappproject.databinding.DefinitionListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.MeaningDetailFragmentDirections
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
+import com.example.onlinedictionaryandroidappproject.presentation.state.DefinitionsState
 
-class DefinitionsListAdapter(
-    private val dataSet: List<String>,
-    private val meaningDetailNavData: MeaningDetailNavData
-) :
-    RecyclerView.Adapter<DefinitionsListAdapter.ViewHolder>() {
+class DefinitionsListAdapter(private val meaningDetailNavData: MeaningDetailNavData) :
+    ListAdapter<DefinitionsState, DefinitionsListAdapter.ItemHolder>(ItemComparator()) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ItemHolder(private val binding: DefinitionListItemLayoutBinding, private val meaningDetailNavData: MeaningDetailNavData) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val itemLayout: LinearLayout
-        val itemContent: TextView
+        fun bind(definition: DefinitionsState, position: Int) = with(binding) {
 
-        init {
-            itemLayout = view.findViewById(R.id.itemLayout)
-            itemContent = view.findViewById(R.id.itemContent)
+            itemContent.text = definition.definition
 
-        }
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.definition_list_item_layout, viewGroup, false)
-
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItemContent = dataSet[position]
-
-        viewHolder.itemContent.text = currentItemContent
-
-        val data = DefinitionDetailNavData(
-            wordID = meaningDetailNavData.wordID,
-            meaningID = meaningDetailNavData.meaningID,
-            definitionID = position,
-        )
-
-//        val action = R.id.action_meaningDetailFragment_to_definitionDetailFragment
-//        val bundle = bundleOf("definitionID" to position)
-
-        val action = MeaningDetailFragmentDirections.actionMeaningDetailFragmentToDefinitionDetailFragment(
-            data
-        )
-
-        viewHolder.itemLayout.setOnClickListener {
-
-            viewHolder.itemView.findNavController().navigate(
-                action
+            val navData = DefinitionDetailNavData(
+                wordID = meaningDetailNavData.wordID,
+                meaningID = meaningDetailNavData.meaningID,
+                definitionID = position,
             )
+
+            val action =
+                MeaningDetailFragmentDirections.actionMeaningDetailFragmentToDefinitionDetailFragment(
+                    navData
+                )
+
+            itemLayout.setOnClickListener {
+
+                binding.root.findNavController().navigate(action)
+            }
+        }
+
+        companion object {
+            fun create(parent: ViewGroup, meaningDetailNavData: MeaningDetailNavData): ItemHolder {
+                return ItemHolder(
+                    DefinitionListItemLayoutBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                    meaningDetailNavData
+                )
+            }
         }
 
     }
 
-    override fun getItemCount() = dataSet.size
+    class ItemComparator : DiffUtil.ItemCallback<DefinitionsState>() {
+        override fun areItemsTheSame(oldItem: DefinitionsState, newItem: DefinitionsState): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: DefinitionsState, newItem: DefinitionsState): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+        return ItemHolder.create(parent, meaningDetailNavData)
+    }
+
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        holder.bind(getItem(position), position)
+    }
+
 }
