@@ -63,6 +63,27 @@
             android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager" />
 
+        <View
+            android:id="@+id/phoneticsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/phoneticHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Phonetics"
+            android:textAppearance="@style/listHeaderStyle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/audiosListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="LinearLayoutManager" />
+
 
     </LinearLayout>
 

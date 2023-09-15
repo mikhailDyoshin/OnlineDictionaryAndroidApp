@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentWordDetailBinding
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.MeaningsListAdapter
+import com.example.onlinedictionaryandroidappproject.presentation.adapter.PhoneticsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,12 +62,21 @@ class WordDetailFragment : Fragment() {
             val meaningsList =
                 newState.data?.wordsStatesList?.get(wordID ?: 0)?.meanings
 
-            val adapter = MeaningsListAdapter(wordID = wordID ?: 0)
+            val audiosURLsList = newState.data?.wordsStatesList?.get(wordID ?: 0)?.phoneticAudios
 
-            val recyclerView: RecyclerView = binding.meaningsListRecyclerView
-            recyclerView.adapter = adapter
+            val meaningsAdapter = MeaningsListAdapter(wordID = wordID ?: 0)
 
-            adapter.submitList(meaningsList)
+            val phoneticsAdapter =
+                PhoneticsListAdapter(context = requireContext(), viewModel = viewModel)
+
+            val meaningsRecyclerView: RecyclerView = binding.meaningsListRecyclerView
+            meaningsRecyclerView.adapter = meaningsAdapter
+
+            val phoneticsRecyclerView: RecyclerView = binding.audiosListRecyclerView
+            phoneticsRecyclerView.adapter = phoneticsAdapter
+
+            meaningsAdapter.submitList(meaningsList)
+            phoneticsAdapter.submitList(audiosURLsList)
 
         }
 

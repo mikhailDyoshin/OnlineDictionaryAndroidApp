@@ -1,14 +1,19 @@
 package com.example.onlinedictionaryandroidappproject.data.repository
 
 
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import androidx.core.net.toUri
 import com.example.onlinedictionaryandroidappproject.common.Resource
 import com.example.onlinedictionaryandroidappproject.data.storage.DictionaryApi
 import com.example.onlinedictionaryandroidappproject.data.storage.models.MeaningsStorageModel
 import com.example.onlinedictionaryandroidappproject.data.storage.models.WordStorageModel
+import com.example.onlinedictionaryandroidappproject.domain.models.AudioDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.DefinitionsDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.MeaningsDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.WordDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.repository.DictionaryRepository
+import com.google.android.exoplayer2.MediaItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
@@ -39,6 +44,24 @@ class DictionaryRepositoryImpl @Inject constructor(private val api: DictionaryAp
         }
     }
 
+    override fun getAudio(audioURL: String): Resource<String>  {
+
+
+        return try {
+
+            val mediaItem = loadAudio(audioURL)
+
+            Resource.success(data="Success")
+
+        } catch (e: IOException) {
+            Resource.error(message = "Error")
+        }
+    }
+
+    private fun loadAudio(audioURL: String): MediaItem {
+        return  MediaItem.fromUri("https/".toUri())
+    }
+
     private fun <T> error(message: String): Resource<T> {
         return Resource.error(message = message)
     }
@@ -53,7 +76,8 @@ class DictionaryRepositoryImpl @Inject constructor(private val api: DictionaryAp
     private fun transformModels(source: WordStorageModel): WordDomainModel {
         return WordDomainModel(
             word = source.word,
-            meanings = getMeanings(source)
+            meanings = getMeanings(source),
+            phoneticAudios = getPhoneticAudios(source)
         )
     }
 
@@ -67,6 +91,14 @@ class DictionaryRepositoryImpl @Inject constructor(private val api: DictionaryAp
                 synonyms = it.synonyms,
                 antonyms = it.antonyms
             )
+        }
+    }
+
+    private fun getPhoneticAudios(word: WordStorageModel): List<AudioDomainModel> {
+        val phonetics = word.phonetics
+
+        return phonetics.map {
+            AudioDomainModel(audioURL = it.audio)
         }
     }
 

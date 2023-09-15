@@ -9,4 +9,6 @@ interface DictionaryRepository {
 
     fun getWord(word: String): Flow<Resource<List<WordDomainModel>>>
 
+    fun getAudio(audioURL: String): Resource<String>
+
 }

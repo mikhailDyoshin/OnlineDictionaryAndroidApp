@@ -5,6 +5,7 @@ import com.example.onlinedictionaryandroidappproject.data.repository.DictionaryR
 import com.example.onlinedictionaryandroidappproject.data.storage.DictionaryApi
 import com.example.onlinedictionaryandroidappproject.domain.repository.DictionaryRepository
 import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
+import com.example.onlinedictionaryandroidappproject.domain.usecase.PlayAudioUseCase
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -43,9 +44,12 @@ object AppModule {
     }
 
     @Provides
-    @Singleton // or another appropriate scope
-    fun provideWordViewModel(getWordUseCase: GetWordUseCase): WordViewModel {
-        return WordViewModel(getWordUseCase)
+    @Singleton
+    fun provideWordViewModel(
+        getWordUseCase: GetWordUseCase,
+        playAudioUseCase: PlayAudioUseCase
+    ): WordViewModel {
+        return WordViewModel(getWordUseCase, playAudioUseCase)
     }
 
 }
