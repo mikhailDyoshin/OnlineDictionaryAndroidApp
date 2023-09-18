@@ -1,6 +1,8 @@
 package com.example.onlinedictionaryandroidappproject.presentation.viewmodel
 
 
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +11,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.onlinedictionaryandroidappproject.common.Resource
 import com.example.onlinedictionaryandroidappproject.domain.models.MeaningsDomainModel
 import com.example.onlinedictionaryandroidappproject.domain.models.WordDomainModel
+import com.example.onlinedictionaryandroidappproject.domain.usecase.GetCountryUseCase
 import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
-import com.example.onlinedictionaryandroidappproject.domain.usecase.PlayAudioUseCase
 import com.example.onlinedictionaryandroidappproject.presentation.state.AudioState
 import com.example.onlinedictionaryandroidappproject.presentation.state.DefinitionsState
 import com.example.onlinedictionaryandroidappproject.presentation.state.MeaningsState
@@ -19,12 +21,14 @@ import com.example.onlinedictionaryandroidappproject.presentation.state.WordStat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class WordViewModel @Inject constructor(
     private val getWordUseCase: GetWordUseCase,
-    private val playAudioUseCase: PlayAudioUseCase
+    private val getCountryUseCase: GetCountryUseCase,
 ) : ViewModel() {
 
     private val _wordState: MutableLiveData<Resource<RequestState>> = MutableLiveData(
@@ -78,26 +82,34 @@ class WordViewModel @Inject constructor(
 
     fun playAudio(audio: AudioState) {
 
+        viewModelScope.launch {
+            loadAndPlayAudio(audio = audio)
+        }
+
+    }
+
+    private fun loadAndPlayAudio(audio: AudioState) {
         val audioURL = audio.audioURL
 
-        if (audioURL != null) {
-            val result = playAudioUseCase.execute(audio = audioURL)
+        val mediaPlayer = MediaPlayer()
 
-                when(result.status) {
-                    Resource.Status.SUCCESS -> {
-                        Log.d("MyAudio", "Audio success")
-                    }
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
 
-                    Resource.Status.ERROR -> {
-                        Log.d("MyAudio", "Audio error")
-                    }
+        mediaPlayer.setAudioAttributes(audioAttributes)
+        try {
+            mediaPlayer.setDataSource(audioURL)
+            mediaPlayer.prepare()
+            mediaPlayer.start()
 
-                    Resource.Status.LOADING -> {
-                        Log.d("MyAudio", "Audio loading")
-                    }
-                }
-            }
+            _wordState.value?.data?.audioStatusMessage = "Success"
+
+        } catch (e: IOException) {
+            _wordState.value?.data?.audioStatusMessage = "Error"
         }
+    }
 
     private fun transformResponse(responseBody: List<WordDomainModel>): List<WordState> {
 
@@ -116,7 +128,12 @@ class WordViewModel @Inject constructor(
         val phoneticAudios = word.phoneticAudios
 
         return phoneticAudios.filter { it.audioURL != null && it.audioURL!!.isNotEmpty() }
-            .map { AudioState(audioURL = it.audioURL) }
+            .map {
+                AudioState(
+                    audioURL = it.audioURL,
+                    country = getCountryUseCase.execute(it.audioURL)
+                )
+            }
     }
 
     private fun transformMeanings(word: WordDomainModel): List<MeaningsState> {

@@ -1,9 +1,7 @@
 package com.example.onlinedictionaryandroidappproject.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,42 +9,47 @@ import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutB
 import com.example.onlinedictionaryandroidappproject.presentation.state.AudioState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 
-class PhoneticsListAdapter(private val context: Context, private val viewModel: WordViewModel) :
+class PhoneticsListAdapter(
+    private val viewModel: WordViewModel,
+    private val checkAudioState: () -> Unit
+) :
     ListAdapter<AudioState, PhoneticsListAdapter.ItemHolder>(ItemComparator()) {
 
     class ItemHolder(
         private val binding: ListItemLayoutBinding,
-        private val context: Context,
-        private val viewModel: WordViewModel
+        private val viewModel: WordViewModel,
+        private val checkAudioState: () -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(audio: AudioState, position: Int) = with(binding) {
+        fun bind(audio: AudioState) = with(binding) {
 
+            val currentItemContent = audio.country
 
-            val currentItemID = position + 1
-            val currentItemIDString = "${currentItemID}."
-
-            itemContent.text = "Play"
+            itemContent.text = currentItemContent
 
             itemLayout.setOnClickListener {
                 viewModel.playAudio(audio = audio)
-                Toast.makeText(context, audio.audioURL, Toast.LENGTH_SHORT).show()
+                checkAudioState()
             }
 
 
         }
 
         companion object {
-            fun create(parent: ViewGroup, context: Context, viewModel: WordViewModel): ItemHolder {
+            fun create(
+                parent: ViewGroup,
+                viewModel: WordViewModel,
+                checkAudioState: () -> Unit
+            ): ItemHolder {
                 return ItemHolder(
                     ListItemLayoutBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
                     ),
-                    context,
                     viewModel,
+                    checkAudioState,
                 )
             }
         }
@@ -65,13 +68,13 @@ class PhoneticsListAdapter(private val context: Context, private val viewModel: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder.create(parent, context, viewModel)
+        return ItemHolder.create(parent, viewModel, checkAudioState)
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(item, position)
+        holder.bind(item)
 
     }
 

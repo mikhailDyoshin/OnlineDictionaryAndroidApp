@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinedictionaryandroidappproject.R
+import com.example.onlinedictionaryandroidappproject.common.Resource
 import com.example.onlinedictionaryandroidappproject.databinding.FragmentWordDetailBinding
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.MeaningsListAdapter
 import com.example.onlinedictionaryandroidappproject.presentation.adapter.PhoneticsListAdapter
+import com.example.onlinedictionaryandroidappproject.presentation.state.RequestState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,6 +60,29 @@ class WordDetailFragment : Fragment() {
 
         viewModel.wordState.observe(viewLifecycleOwner) { newState ->
 
+            fun checkAudioStatus(
+                state: Resource<RequestState> = newState,
+                view: View = binding.root
+            ) {
+                val status = state.data?.audioStatusMessage
+
+                if (status != null) {
+                    when (status) {
+                        "Success" -> {
+                            Toast.makeText(view.context, "Playing", Toast.LENGTH_SHORT).show()
+                        }
+
+                        "Error" -> {
+                            Toast.makeText(
+                                view.context,
+                                "Check internet connection",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
             val wordID = arguments?.getInt("wordID")
 
             val meaningsList =
@@ -67,7 +93,7 @@ class WordDetailFragment : Fragment() {
             val meaningsAdapter = MeaningsListAdapter(wordID = wordID ?: 0)
 
             val phoneticsAdapter =
-                PhoneticsListAdapter(context = requireContext(), viewModel = viewModel)
+                PhoneticsListAdapter(viewModel = viewModel) { checkAudioStatus() }
 
             val meaningsRecyclerView: RecyclerView = binding.meaningsListRecyclerView
             meaningsRecyclerView.adapter = meaningsAdapter

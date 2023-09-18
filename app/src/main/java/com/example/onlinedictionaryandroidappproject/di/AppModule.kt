@@ -4,8 +4,8 @@ import com.example.onlinedictionaryandroidappproject.common.Constants
 import com.example.onlinedictionaryandroidappproject.data.repository.DictionaryRepositoryImpl
 import com.example.onlinedictionaryandroidappproject.data.storage.DictionaryApi
 import com.example.onlinedictionaryandroidappproject.domain.repository.DictionaryRepository
+import com.example.onlinedictionaryandroidappproject.domain.usecase.GetCountryUseCase
 import com.example.onlinedictionaryandroidappproject.domain.usecase.GetWordUseCase
-import com.example.onlinedictionaryandroidappproject.domain.usecase.PlayAudioUseCase
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -47,9 +47,9 @@ object AppModule {
     @Singleton
     fun provideWordViewModel(
         getWordUseCase: GetWordUseCase,
-        playAudioUseCase: PlayAudioUseCase
+        getCountryUseCase: GetCountryUseCase,
     ): WordViewModel {
-        return WordViewModel(getWordUseCase, playAudioUseCase)
+        return WordViewModel(getWordUseCase, getCountryUseCase)
     }
 
 }

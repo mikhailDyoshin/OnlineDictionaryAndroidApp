@@ -1,3 +1,3 @@
 package com.example.onlinedictionaryandroidappproject.presentation.state
 
-data class AudioState(var audioURL: String? = null)
+data class AudioState(var audioURL: String? = null, var country: String?)
