@@ -127,7 +127,7 @@ class WordViewModel @Inject constructor(
     private fun transformAudios(word: WordDomainModel): List<AudioState> {
         val phoneticAudios = word.phoneticAudios
 
-        return phoneticAudios.filter { it.audioURL != null && it.audioURL!!.isNotEmpty() }
+        return phoneticAudios.filter { !it.audioURL.isNullOrEmpty() }
             .map {
                 AudioState(
                     audioURL = it.audioURL,
