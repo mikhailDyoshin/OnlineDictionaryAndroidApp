@@ -5,8 +5,35 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="AppHeaderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:background">@drawable/app_header_shape</item>
+    </style>
+
+    <style name="DarkBackgroundStyle">
+        <item name="android:background">@drawable/dark_background_shape</item>
+    </style>
+
+    <!-- Autumn TextInputLayout Style -->
+    <style name="AutumnTextInputLayout">
+        <item name="boxStrokeColor">@color/gold</item>
+        <item name="hintTextColor">@color/gold</item>
+    </style>
+
+    <!-- Autumn TextInputEditText Style -->
+    <style name="AutumnTextInputEditText">
+        <item name="boxStrokeColor">@color/autumnText</item>
+        <item name="boxBackgroundColor">@color/autumnOrange</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="InputTextStyle">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="borderColor">

@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            style="@style/DarkBackgroundStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -33,19 +34,16 @@
 
                 <TextView
                     android:id="@+id/onlineDictionary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/text_border_shape"
-                    android:gravity="center"
+                    style="@style/AppHeaderStyle"
+                    android:fontFamily="@font/gotu"
                     android:text="@string/online_dictionary"
-                    android:textSize="28sp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/loadingTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginTop="5dp"
+                    android:paddingTop="5dp"
                     android:gravity="center"
                     android:text="@{wordViewModel.wordState.data.statusMessage}"
                     android:textSize="20sp" />
@@ -71,25 +69,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textField"
+                <EditText
+                    android:id="@+id/text_input_edit_text"
                     android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:gravity="center"
-                    android:padding="0dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_input_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/enter_english_word_hint"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textAppearance="@style/InputTextStyle" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/edittext_background"
+                    android:textCursorDrawable="@drawable/cursor_shape"/>
 
                 <ImageButton
                     android:id="@+id/search"

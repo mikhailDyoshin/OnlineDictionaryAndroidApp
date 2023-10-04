@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colors -->
+    <color name="autumnOrange">#FFA500</color>
+    <color name="autumnBrown">#8B4513</color>
+    <color name="autumnText">#FF5722</color>
+    <color name="gold">#FFA200</color>
+    <color name="darkBackground">#02021C</color>
+    <color name="borderSoftColor">#FFB472</color>
+
+    <!-- Autumn EditText Background (drawable) -->
+    <drawable name="autumn_edittext_background">@drawable/autumn_edittext_shape</drawable>
 </resources>
