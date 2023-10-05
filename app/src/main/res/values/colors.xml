@@ -10,6 +10,10 @@
     <color name="gold">#FFA200</color>
     <color name="darkBackground">#02021C</color>
     <color name="borderSoftColor">#FFB472</color>
+    <color name="orangeWarmColor">#FF8400</color>
+    <color name="textColorInEditText">#C3C1C1</color>
+    <color name="textHintColor">#616161</color>
+    <color name="statusTextColor">#FFA509</color>
 
     <!-- Autumn EditText Background (drawable) -->
     <drawable name="autumn_edittext_background">@drawable/autumn_edittext_shape</drawable>
