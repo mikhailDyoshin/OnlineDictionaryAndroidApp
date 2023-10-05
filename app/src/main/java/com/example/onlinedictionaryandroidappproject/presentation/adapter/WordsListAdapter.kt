@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.GetWordFragmentDirections
 import com.example.onlinedictionaryandroidappproject.presentation.state.WordState
@@ -64,6 +65,11 @@ class WordsListAdapter : ListAdapter<WordState, WordsListAdapter.ItemHolder>(Ite
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.bind(getItem(position), position)
+
+
+        if (position == itemCount - 1) {
+            holder.itemView.setBackgroundResource(R.drawable.last_list_item_shape)
+        }
     }
 
 }
