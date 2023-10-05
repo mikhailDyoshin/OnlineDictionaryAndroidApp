@@ -12,150 +12,136 @@
 
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp">
-
-                <ImageButton
-                    android:id="@+id/backButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/back_arrow_icon"
-                    android:background="@drawable/button_border_shape"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/back_button_description" />
-
-                <ImageButton
-                    android:id="@+id/homeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_icon"
-                    android:background="@drawable/button_border_shape"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/home_button_description" />
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/dataHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Definition detail"
-                android:textAppearance="@style/listHeaderStyle" />
-
-            <View
-                android:id="@+id/headerDefinitionDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/definition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/wordDefinitionStyle" />
-
-            <View
-                android:id="@+id/definitionExampleDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/example"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text=""
-                android:textAppearance="@style/wordExampleStyle" />
-
-            <View
-                android:id="@+id/exampleOnymsDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <!-- Synonyms list -->
+                <TextView
+                    android:id="@+id/dataHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Definition detail"
+                    android:textAppearance="@style/HeaderTextStyle" />
+
+                <View
+                    android:id="@+id/headerDefinitionDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/definition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textAppearance="@style/wordDefinitionStyle" />
+
+                <View
+                    android:id="@+id/definitionExampleDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/example"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textAppearance="@style/wordExampleStyle" />
+
+                <View
+                    android:id="@+id/exampleOnymsDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/synonymsListHeader"
+                    <!-- Synonyms list -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/synonyms_list_header"
-                        android:textAppearance="@style/onymsListHeader" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/synonymsListRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="LinearLayoutManager" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/synonymsListHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/synonyms_list_header"
+                            android:textAppearance="@style/onymsListHeader" />
 
-                <!-- Antonyms list -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/synonymsListRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="LinearLayoutManager" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/antonymsListHeader"
+                    <!-- Antonyms list -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/antonyms_list_header"
-                        android:textAppearance="@style/onymsListHeader" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/antonymsListRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        app:layoutManager="LinearLayoutManager" />
+                        <TextView
+                            android:id="@+id/antonymsListHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/antonyms_list_header"
+                            android:textAppearance="@style/onymsListHeader" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/antonymsListRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            app:layoutManager="LinearLayoutManager" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
 
             </LinearLayout>
 
+        </ScrollView>
 
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_button_shape"
+            android:contentDescription="@string/home_button_description"
+            android:src="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </ScrollView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

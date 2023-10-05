@@ -12,79 +12,64 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            style="@style/DarkBackgroundStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/dataHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/back_arrow_icon"
-                android:background="@drawable/button_border_shape"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/back_button_description" />
+                android:gravity="center"
+                android:text="Word Detail"
+                android:textAppearance="@style/HeaderTextStyle" />
 
-            <ImageButton
-                android:id="@+id/homeButton"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/meaningsListRecyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/home_icon"
-                android:background="@drawable/button_border_shape"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/home_button_description" />
+                app:layoutManager="LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/phoneticHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Phonetics"
+                android:textAppearance="@style/HeaderTextStyle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/audiosListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager" />
 
 
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/dataHeader"
+        <ImageButton
+            android:id="@+id/homeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Word Detail"
-            android:textAppearance="@style/listHeaderStyle" />
+            android:background="@drawable/nav_button_shape"
+            android:contentDescription="@string/home_button_description"
+            android:src="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/meaningsListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/phoneticsDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/listDivider" />
-
-        <TextView
-            android:id="@+id/phoneticHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Phonetics"
-            android:textAppearance="@style/listHeaderStyle" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/audiosListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager" />
-
-
-    </LinearLayout>
 
 </layout>

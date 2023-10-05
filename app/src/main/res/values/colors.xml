@@ -15,6 +15,4 @@
     <color name="textHintColor">#616161</color>
     <color name="statusTextColor">#FFA509</color>
 
-    <!-- Autumn EditText Background (drawable) -->
-    <drawable name="autumn_edittext_background">@drawable/autumn_edittext_shape</drawable>
 </resources>

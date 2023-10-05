@@ -14,6 +14,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="HeaderTextStyle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/orangeWarmColor</item>
+    </style>
+
     <style name="EditTextStyle">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">290dp</item>
@@ -54,7 +61,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">3dp</item>
         <item name="android:paddingEnd">15dp</item>
-        <item name="android:background">@drawable/button_border_shape</item>
+        <item name="android:background">@drawable/search_button_shape</item>
         <item name="android:contentDescription">@string/search_button</item>
         <item name="android:src">@drawable/search_icon</item>
     </style>
@@ -84,10 +91,6 @@
 
     <style name="borderColor">
         <item name="android:color">#808080</item>
-    </style>
-
-    <style name="listHeaderStyle">
-        <item name="android:textSize">45sp</item>
     </style>
 
     <style name="listItemTextStyle">

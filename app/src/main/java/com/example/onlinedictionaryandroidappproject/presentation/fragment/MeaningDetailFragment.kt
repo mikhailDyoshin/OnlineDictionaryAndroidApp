@@ -45,11 +45,6 @@ class MeaningDetailFragment : Fragment() {
         binding.wordViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Back-button navigation
-        binding.backButton.setOnClickListener {
-            binding.root.findNavController().navigateUp()
-        }
-
         // Home-button navigation
         binding.homeButton.setOnClickListener {
             val action =

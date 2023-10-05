@@ -49,10 +49,6 @@ class DefinitionDetailFragment : Fragment() {
         val synonymsListHeader: TextView = binding.synonymsListHeader
         val antonymsListHeader: TextView = binding.antonymsListHeader
 
-        // Back-button navigation
-        binding.backButton.setOnClickListener {
-            binding.root.findNavController().navigateUp()
-        }
 
         // Home-button navigation
         binding.homeButton.setOnClickListener {

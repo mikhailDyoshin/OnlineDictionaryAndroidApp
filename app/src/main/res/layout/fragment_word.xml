@@ -61,7 +61,9 @@
 
                 <EditText
                     android:id="@+id/text_input_edit_text"
-                    style="@style/EditTextStyle" />
+                    style="@style/EditTextStyle"
+                    android:lines="1"
+                    android:maxLength="21"/>
 
                 <ImageButton
                     android:id="@+id/search"
