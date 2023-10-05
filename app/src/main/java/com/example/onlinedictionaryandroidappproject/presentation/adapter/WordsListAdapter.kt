@@ -16,13 +16,17 @@ class WordsListAdapter : ListAdapter<WordState, WordsListAdapter.ItemHolder>(Ite
     class ItemHolder(private val binding: ListItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(word: WordState, position: Int) = with(binding) {
+        fun bind(word: WordState, position: Int, itemCount: Int) = with(binding) {
 
             val currentItemID = position + 1
             val currentItemIDString = "${currentItemID}."
 
             itemContent.text = word.word
-            itemID.text = currentItemIDString
+
+            if (itemCount > 1) {
+                itemID.text = currentItemIDString
+            }
+
 
             val action = GetWordFragmentDirections.actionGetWordFragmentToWordDetailFragment(
                 wordID = position
@@ -64,7 +68,7 @@ class WordsListAdapter : ListAdapter<WordState, WordsListAdapter.ItemHolder>(Ite
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind(getItem(position), position)
+        holder.bind(getItem(position), position, itemCount)
 
 
         if (position == itemCount - 1) {
