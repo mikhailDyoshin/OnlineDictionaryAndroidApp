@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.DefinitionListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.MeaningDetailFragmentDirections
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.DefinitionDetailNavData
@@ -71,6 +72,10 @@ class DefinitionsListAdapter(private val meaningDetailNavData: MeaningDetailNavD
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.bind(getItem(position), position)
+
+        if (position == itemCount - 1) {
+            holder.itemView.setBackgroundResource(R.drawable.last_list_item_shape)
+        }
     }
 
 }

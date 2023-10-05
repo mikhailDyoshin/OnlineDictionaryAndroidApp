@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.fragment.WordDetailFragmentDirections
 import com.example.onlinedictionaryandroidappproject.presentation.nav_arg_data.MeaningDetailNavData
@@ -19,11 +20,7 @@ class MeaningsListAdapter(private val wordID: Int) :
 
         fun bind(meaning: MeaningsState, position: Int) = with(binding) {
 
-            val currentItemID = position + 1
-            val currentItemIDString = "${currentItemID}."
-
             itemContent.text = meaning.partOfSpeech
-            itemID.text = currentItemIDString
 
             val data = MeaningDetailNavData(
                 wordID = wordID,
@@ -73,6 +70,10 @@ class MeaningsListAdapter(private val wordID: Int) :
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.bind(getItem(position), position)
+
+        if (position == itemCount - 1) {
+            holder.itemView.setBackgroundResource(R.drawable.last_list_item_shape)
+        }
     }
 
 }

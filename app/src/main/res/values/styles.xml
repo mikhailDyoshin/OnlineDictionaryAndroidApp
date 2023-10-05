@@ -72,19 +72,6 @@
         <item name="android:background">@drawable/dark_background_shape</item>
     </style>
 
-    <!-- Autumn TextInputLayout Style -->
-    <style name="AutumnTextInputLayout">
-        <item name="boxStrokeColor">@color/gold</item>
-        <item name="hintTextColor">@color/gold</item>
-    </style>
-
-    <!-- Autumn TextInputEditText Style -->
-    <style name="AutumnTextInputEditText">
-        <item name="boxStrokeColor">@color/autumnText</item>
-        <item name="boxBackgroundColor">@color/autumnOrange</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
     <style name="InputTextStyle">
         <item name="android:textSize">22sp</item>
     </style>
@@ -103,7 +90,8 @@
         <item name="android:textSize">35sp</item>
     </style>
 
-    <style name="wordDefinitionStyle">
+    <style name="wordDefinitionTextStyle">
+
         <item name="android:textSize">26sp</item>
     </style>
 
@@ -112,6 +100,8 @@
     </style>
 
     <style name="definitionItemTextStyle">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
         <item name="android:textSize">24sp</item>
     </style>
 

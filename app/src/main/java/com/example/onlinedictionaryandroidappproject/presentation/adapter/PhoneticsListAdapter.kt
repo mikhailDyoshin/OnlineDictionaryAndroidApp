@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinedictionaryandroidappproject.R
 import com.example.onlinedictionaryandroidappproject.databinding.ListItemLayoutBinding
 import com.example.onlinedictionaryandroidappproject.presentation.state.AudioState
 import com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel
@@ -75,6 +76,10 @@ class PhoneticsListAdapter(
         val item = getItem(position)
 
         holder.bind(item)
+
+        if (position == itemCount - 1) {
+            holder.itemView.setBackgroundResource(R.drawable.last_list_item_shape)
+        }
 
     }
 
