@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Word Detail"
+                android:text="@string/word_detail_header"
                 android:textAppearance="@style/HeaderTextStyle" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -45,8 +45,9 @@
                 android:id="@+id/phoneticHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:text="Phonetics"
+                android:text="@string/phonetics_header"
                 android:textAppearance="@style/HeaderTextStyle" />
 
             <androidx.recyclerview.widget.RecyclerView

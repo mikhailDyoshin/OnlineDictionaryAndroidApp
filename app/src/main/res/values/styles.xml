@@ -67,7 +67,6 @@
     </style>
 
 
-
     <style name="DarkBackgroundStyle">
         <item name="android:background">@drawable/dark_background_shape</item>
     </style>
@@ -87,15 +86,20 @@
     </style>
 
     <style name="homeButtonStyle">
+
         <item name="android:textSize">35sp</item>
     </style>
 
     <style name="wordDefinitionTextStyle">
-
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
         <item name="android:textSize">26sp</item>
     </style>
 
     <style name="wordExampleStyle">
+        <item name="android:textStyle">italic</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
         <item name="android:textSize">24sp</item>
     </style>
 
@@ -106,10 +110,14 @@
     </style>
 
     <style name="onymsListHeader">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
         <item name="android:textSize">26sp</item>
     </style>
 
     <style name="onymItemTextStyle">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
         <item name="android:textSize">20sp</item>
     </style>
 

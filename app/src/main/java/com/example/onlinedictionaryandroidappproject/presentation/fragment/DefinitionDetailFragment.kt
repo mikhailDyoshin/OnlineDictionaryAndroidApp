@@ -114,18 +114,6 @@ class DefinitionDetailFragment : Fragment() {
                             antonymsRecyclerView.visibility = View.GONE
                         }
 
-                        synonyms.isEmpty() -> {
-                            synonymsListHeader.visibility = View.GONE
-                            synonymsRecyclerView.visibility = View.GONE
-
-                        }
-
-                        antonyms.isEmpty() -> {
-                            antonymsListHeader.visibility = View.GONE
-                            antonymsRecyclerView.visibility = View.GONE
-
-                        }
-
                         else -> {
                             synonymsListHeader.visibility = View.VISIBLE
                             antonymsListHeader.visibility = View.VISIBLE

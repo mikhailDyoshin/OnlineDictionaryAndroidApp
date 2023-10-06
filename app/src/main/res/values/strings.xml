@@ -14,4 +14,6 @@
     <string name="home_button_description">home_button</string>
     <string name="synonyms_list_header">Synonyms</string>
     <string name="antonyms_list_header">Antonyms</string>
+    <string name="phonetics_header">Phonetics</string>
+    <string name="word_detail_header">Word Detail</string>
 </resources>
