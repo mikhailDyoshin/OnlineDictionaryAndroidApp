@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppHeaderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:background">@drawable/app_header_shape</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:text">@string/online_dictionary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeaderTextStyle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/orangeWarmColor</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">290dp</item>
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:textColor">@color/textColorInEditText</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:hint">@string/enter_english_word_hint</item>
+        <item name="android:textColorHint">@color/textHintColor</item>
+    </style>
+
+    <style name="LoadingStatusStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MessageStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SearchButtonStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">3dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:background">@drawable/search_button_shape</item>
+        <item name="android:contentDescription">@string/search_button</item>
+        <item name="android:src">@drawable/search_icon</item>
+    </style>
+
+
+    <style name="DarkBackgroundStyle">
+        <item name="android:background">@drawable/dark_background_shape</item>
+    </style>
+
+    <style name="InputTextStyle">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="borderColor">
+        <item name="android:color">#808080</item>
+    </style>
+
+    <style name="listItemTextStyle">
+        <item name="android:textSize">35sp</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+    </style>
+
+    <style name="homeButtonStyle">
+
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="wordDefinitionTextStyle">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="wordExampleStyle">
+        <item name="android:textStyle">italic</item>
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="definitionItemTextStyle">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="onymsListHeader">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="onymItemTextStyle">
+        <item name="android:fontFamily">@font/gotu</item>
+        <item name="android:textColor">@color/statusTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>

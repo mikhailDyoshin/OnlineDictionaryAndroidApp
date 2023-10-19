@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colors -->
+    <color name="autumnOrange">#FFA500</color>
+    <color name="autumnBrown">#8B4513</color>
+    <color name="autumnText">#FF5722</color>
+    <color name="gold">#FFA200</color>
+    <color name="darkBackground">#02021C</color>
+    <color name="borderSoftColor">#FFB472</color>
+    <color name="orangeWarmColor">#FF8400</color>
+    <color name="textColorInEditText">#C3C1C1</color>
+    <color name="textHintColor">#616161</color>
+    <color name="statusTextColor">#FFA509</color>
+
+</resources>

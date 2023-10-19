@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.viewssandbox.fragment.ParentsFragment">
+
+    <data>
+
+        <variable
+            name="wordViewModel"
+            type="com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            style="@style/DarkBackgroundStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dataHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Definition detail"
+                    android:textAppearance="@style/HeaderTextStyle" />
+
+                <View
+                    android:id="@+id/headerDefinitionDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_shape" />
+
+                <TextView
+                    android:id="@+id/definition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text=""
+                    android:textAppearance="@style/wordDefinitionTextStyle" />
+
+                <View
+                    android:id="@+id/definitionExampleDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_shape" />
+
+                <TextView
+                    android:id="@+id/example"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text=""
+                    android:textAppearance="@style/wordExampleStyle"
+                     />
+
+                <View
+                    android:id="@+id/exampleOnymsDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_shape" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Synonyms list -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/synonymsListHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/synonyms_list_header"
+                            android:textAppearance="@style/onymsListHeader" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/synonymsListRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="LinearLayoutManager" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/onymsDivider"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/divider_shape" />
+
+                    <!-- Antonyms list -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/antonymsListHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/antonyms_list_header"
+                            android:textAppearance="@style/onymsListHeader" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/antonymsListRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            app:layoutManager="LinearLayoutManager" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nav_button_shape"
+            android:contentDescription="@string/home_button_description"
+            android:src="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

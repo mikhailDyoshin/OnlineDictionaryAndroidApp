@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="wordViewModel"
+            type="com.example.onlinedictionaryandroidappproject.presentation.viewmodel.WordViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            style="@style/DarkBackgroundStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/onlineDictionary"
+                    style="@style/AppHeaderStyle" />
+
+                <TextView
+                    android:id="@+id/loadingTextView"
+                    style="@style/LoadingStatusStyle"
+                    android:text="@{wordViewModel.wordState.data.statusMessage}" />
+
+                <TextView
+                    android:id="@+id/message"
+                    style="@style/MessageStyle"
+                    android:text="@{wordViewModel.wordState.message}" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/text_input_edit_text"
+                    style="@style/EditTextStyle"
+                    android:lines="1"
+                    android:maxLength="21"/>
+
+                <ImageButton
+                    android:id="@+id/search"
+                    style="@style/SearchButtonStyle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="85dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wordsListRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    app:layoutManager="LinearLayoutManager" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
